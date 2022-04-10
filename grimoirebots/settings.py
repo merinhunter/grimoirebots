@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 import json
-import logging.config
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -78,12 +77,14 @@ WSGI_APPLICATION = 'grimoirebots.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': f'django.db.backends.{os.getenv('DATABASE_ENGINE', 'sqlite3')}',
-        'NAME': os.getenv('DATABASE_NAME', 'mydatabase'),
-        'USER': os.getenv('DATABASE_USERNAME', 'mydatabaseuser'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'mypassword'),
-        'HOST': os.getenv('DATABASE_HOST', '127.0.0.1'),
-        'PORT': os.getenv('DATABASE_PORT', 5432),
+        'ENGINE': 'django.db.backends.{}'.format(
+            os.getenv('DATABASE_ENGINE', 'sqlite3')
+        ),
+        'NAME': os.getenv('DATABASE_NAME', BASE_DIR.joinpath('db.sqlite3')),
+        'USER': os.getenv('DATABASE_USERNAME', ''),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD', ''),
+        'HOST': os.getenv('DATABASE_HOST', ''),
+        'PORT': os.getenv('DATABASE_PORT', ''),
         'OPTIONS': json.loads(
             os.getenv('DATABASE_OPTIONS', '{}')
         ),
@@ -111,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Logging configuration
-# https://docs.djangoproject.com/en/3.2/topics/logging/
+# https://docs.djangoproject.com/en/4.0/topics/logging/
 
 LOGGING = {
     'version': 1,
