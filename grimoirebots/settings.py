@@ -134,8 +134,10 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'info').upper(),
             'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'info').upper(),
+            # required to avoid double logging with root logger
+            'propagate': False,
         },
     },
 }
