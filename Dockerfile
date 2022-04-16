@@ -29,4 +29,4 @@ COPY . /code/
 
 EXPOSE 8000
 
-CMD ["gunicorn", "--workers", "4", "grimoirebots.wsgi"]
+CMD ["gunicorn", "--bind", ":8000", "--workers", "4", "grimoirebots.wsgi"]
